@@ -1,5 +1,5 @@
 # Bioinformatics-CEP
 
-loca is for local assignment in allignment
+local is for local assignment in allignment
 motif is dynamic programming 
-string not dne
+string not done
