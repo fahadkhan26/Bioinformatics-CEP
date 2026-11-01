@@ -175,7 +175,7 @@ def generate_local_alignment(s: str, t: str, gap_penalty: int = 5) -> dict:
             "traceback_cells": set(), "score": 0,
         })
 
-    # Keep the first alignment in the original result fields for compatibility.
+
     result = dict(all_alignments[0])
     result.update({
         "H": H,
@@ -220,7 +220,6 @@ def render_dp_matrix_table(s: str, t: str, res: dict) -> str:
     path = res["traceback_cells"]
     n, m = len(s), len(t)
 
-    # Display full matrix for sequences <= 22 aa; otherwise show 15x15 window ending at the peak
     r_end = n if n <= 22 else res["end_i"]
     r_start = 0 if n <= 22 else max(0, r_end - 14)
     c_end = m if m <= 22 else res["end_j"]
@@ -298,7 +297,7 @@ def display_complete_results(s: str, t: str, res: dict) -> str:
     banner = "=" * 96
 
     out.append(banner)
-    out.append("  CS-434 BIOINFORMATICS | SMITH-WATERMAN LOCAL ALIGNMENT REPORT (ROSALIND: LOCA)")
+    out.append("SMITH-WATERMAN LOCAL ALIGNMENT REPORT (ROSALIND: LOCA)")
     out.append(banner)
 
     # SECTION 1: Input Sequences & Summary Table
@@ -378,7 +377,7 @@ def display_complete_results(s: str, t: str, res: dict) -> str:
         out.extend([sep_row, hdr_idx, sep_row, row_s, row_m, row_t, sep_row, row_sc, sep_row])
 
     # SECTION 5: Clean Rosalind Output
-    out.append("\n[STEP 5] FINAL ROSALIND 'LOCA' OUTPUT (Also saved to 'loca_submission.txt')")
+    out.append("\n[STEP 5] FINAL ROSALIND 'LOCA' OUTPUT")
     out.append(box_border)
     out.append(f"| {str(res['max_score']):<92s} |")
     for idx in range(0, len(res["motif_s"]), 90):
@@ -405,7 +404,7 @@ def display_complete_results(s: str, t: str, res: dict) -> str:
 def show_menu():
     """Displays the interactive menu in the same style as the motif program."""
     print("\n" + "=" * 78)
-    print("  CS-434 BIOINFORMATICS | SMITH-WATERMAN LOCAL ALIGNMENT (ROSALIND: LOCA)")
+    print("              SMITH-WATERMAN LOCAL ALIGNMENT (ROSALIND: LOCA)")
     print("=" * 78)
     print("  [1] Sample Case")
     print("  [2] Custom Case")
@@ -456,42 +455,13 @@ def read_custom_sequences():
 
 
 def save_and_show_results(seq_s, seq_t, gap_pen):
-    """Runs the alignment, displays the report, and saves both text files."""
+    """Runs the alignment and displays the report in the terminal."""
     alignment_data = generate_local_alignment(seq_s, seq_t, gap_penalty=gap_pen)
     full_report = display_complete_results(seq_s, seq_t, alignment_data)
-
-    submission_lines = [
-        "ALL DISTINCT OPTIMAL LOCAL ALIGNMENTS",
-        f"Maximum score: {alignment_data['max_score']}",
-        f"Number of alignments: {len(alignment_data['all_alignments'])}",
-    ]
-    for number, item in enumerate(alignment_data["all_alignments"], 1):
-        submission_lines.extend([
-            "",
-            f"Alignment {number}",
-            f"Sequence 1 positions: {item['start_i']}..{item['end_i']}",
-            f"Sequence 2 positions: {item['start_j']}..{item['end_j']}",
-            f"Score: {item['score']}",
-            item["aligned_s"],
-            item["aligned_t"],
-        ])
-
-    # Always save the files beside this Python script, not the terminal's folder.
-    script_folder = Path(__file__).resolve().parent
-    submission_path = script_folder / "loca_submission.txt"
-    report_path = script_folder / "loca_full_report.txt"
-
-    # Write mode replaces old results, so the files contain this run's output.
-    submission_path.write_text("\n".join(submission_lines) + "\n", encoding="utf-8")
-    report_path.write_text(full_report + "\n", encoding="utf-8")
 
     print("\n" + full_report)
     print("\n" + "=" * 78)
     print("  RUN COMPLETED SUCCESSFULLY")
-    print("=" * 78)
-    print(f"  Full report saved to: {report_path}")
-    print(f"  All optimal alignments saved to: {submission_path}")
-    print("  Previous contents of these files were overwritten.")
     print("=" * 78)
 
 

@@ -78,7 +78,7 @@ def get_sequences():
         return (*read_fasta_file(sys.argv[1]), "file")
 
     print("=" * 96)
-    print("  CS-434 BIOINFORMATICS | GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY (ROSALIND: GAFF)")
+    print("GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY (ROSALIND: GAFF)")
     print("=" * 96)
     print("  [1] Rosalind Sample Case")
     print("  [2] Custom Case")
@@ -271,7 +271,7 @@ def render_report(s, t, res, case_label):
     out = []
     banner = "=" * 96
     out += [banner,
-            "  CS-434 BIOINFORMATICS | GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY REPORT (ROSALIND: GAFF)",
+            "  GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY REPORT (ROSALIND: GAFF)",
             banner,
             "\n[STEP 1] INPUT SEQUENCES & SUMMARY TELEMETRY"]
     s_disp = s if len(s) <= 65 else s[:62] + "..."
@@ -375,7 +375,7 @@ def render_report(s, t, res, case_label):
 
 def show_menu():
     print("\n" + "=" * 78)
-    print("  CS-434 BIOINFORMATICS | GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY (ROSALIND: GAFF)")
+    print("         GLOBAL ALIGNMENT WITH AFFINE GAP PENALTY (ROSALIND: GAFF)")
     print("=" * 78)
     print("  [1] Sample Case")
     print("  [2] Custom Case")
